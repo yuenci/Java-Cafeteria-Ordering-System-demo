@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class UC_login extends JPanel {
     JLabel accountlabel;
@@ -48,6 +49,8 @@ public class UC_login extends JPanel {
         this.add(recoveryBtn);
 
         loginBtn.addActionListener(new loginBtnListener());
+
+
     }
 
     private class loginBtnListener implements ActionListener{
@@ -56,16 +59,25 @@ public class UC_login extends JPanel {
             String acs = accountField.getText();
             String pws = pwsField.getText();
 
-            if(acs.isEmpty() || pws.isEmpty()){
+            MainFrame.changeToCustomerShopping();
+
+            /*if(acs.isEmpty() || pws.isEmpty()){
                 JOptionPane.showMessageDialog(instance,"Enter account and password please");
             }
 
             if(Data.authentication(acs,pws)){
                 JOptionPane.showMessageDialog(instance,"Welcome" + Status.userName);
+                if(Objects.equals(Status.type, "admin")){
+                    MainFrame.changeToAdminDashBoard();
+                }else{
+                    MainFrame.changeToCustomerShopping();
+                }
+
             }else
             {
                 JOptionPane.showMessageDialog(instance,"TP number or password has mistake");
             }
+             */
         }
     }
 }
