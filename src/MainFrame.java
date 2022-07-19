@@ -8,7 +8,7 @@ public class MainFrame extends JFrame {
         instance= this;
         this.setLayout(null);
 
-        UC_login uc_login = new UC_login();
+        JPanel uc_login = new UC_login();
         uc_login.setBounds(425,85,430,550);
 
         this.add(uc_login);
