@@ -18,13 +18,13 @@ public class MainFrame extends JFrame {
         JPanel uc_login = new UC_login();
         uc_login.setBounds(425,85,430,550);*/
 
-        /*JPanel uc_shopping = new UC_shopping();
-        uc_shopping.setBounds(0,0,1280,720);*/
+        JPanel uc_shopping = new UC_shopping();
+        uc_shopping.setBounds(0,0,1280,720);
 
-        JPanel uc_payment = new UC_payment();
-        uc_payment.setBounds(0,0,1280,720);
+        /*JPanel uc_payment = new UC_payment();
+        uc_payment.setBounds(0,0,1280,720);*/
 
-        root.add(uc_payment);
+        root.add(uc_shopping);
 
 
     }
@@ -44,6 +44,15 @@ public class MainFrame extends JFrame {
         uc_shopping.setBounds(0,0,1280,720);
 
         addNewPanelToFrame(uc_shopping);
+
+    }
+
+    public static void changeToPayment()
+    {
+        JPanel uc_payment = new UC_payment();
+        uc_payment.setBounds(0,0,1280,720);
+
+        addNewPanelToFrame(uc_payment);
 
     }
 

@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class UC_foodCard extends JPanel {
     public int price;
+    public int amount;
     public String name;
     private JLabel addPicLabel;
     private UC_foodCard instance;
@@ -29,7 +30,7 @@ public class UC_foodCard extends JPanel {
         foodNameLabel.setFont(new Font("Segoe UI",Font.PLAIN,16));
         this.add(foodNameLabel);
 
-        JLabel priceLabel = new JLabel(String.valueOf(price)) ;
+        JLabel priceLabel = new JLabel("RM " +price) ;
         priceLabel.setBounds(20,210,120,24);
         priceLabel.setFont(new Font("Segoe UI",Font.PLAIN,16));
         this.add(priceLabel);

@@ -28,6 +28,7 @@ public class UC_shopping extends JPanel {
 
 
         initLabels();
+        initPics();
 
         initData();
         addCardContainer();
@@ -46,6 +47,9 @@ public class UC_shopping extends JPanel {
         totalPrice= new JLabel("RM  0");
         AddLabel(totalPrice,1080,30,100,24,"right");
 
+    }
+
+    private  void initPics(){
         ImageIcon historyPic = new ImageIcon("src/images/history.png");
         historyPic.setImage(historyPic.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH));
 
@@ -58,6 +62,11 @@ public class UC_shopping extends JPanel {
             public void mouseEntered(MouseEvent e) {
                 Cursor cur=new Cursor(Cursor.HAND_CURSOR);
                 historyPicLabel.setCursor(cur);
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
             }
         });
 
@@ -75,7 +84,15 @@ public class UC_shopping extends JPanel {
                 finishPicLabel.setCursor(cur);
             }
 
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(ShoppingCart.getTotoalPrice() !=0){
+                    MainFrame.changeToPayment();
+                }else{
+                    JOptionPane.showMessageDialog(instance,"You haven't choose any food");
+                }
 
+            }
         });
     }
 

@@ -23,7 +23,7 @@ public class Data {
         }
     }
 
-    public static boolean AddToFile(String path, String content) {
+    public static boolean addStringToFile(String path, String content) {
         try {
             File file = new File(path);
             if (!file.exists()) {
@@ -32,6 +32,28 @@ public class Data {
             OutputStream fOut = new FileOutputStream(file, true);
             String str = content + "\n";
             fOut.write(str.getBytes());
+            fOut.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean addArrayToFile(String path, ArrayList<String> content) {
+        try {
+            File file = new File(path);
+            if (!file.exists()) {
+                System.out.println(file.createNewFile());
+            }
+            OutputStream fOut = new FileOutputStream(file, true);
+
+            for (String ele:content
+                 ) {
+                String str = ele + "\n";
+                fOut.write(str.getBytes());
+            }
+
             fOut.close();
             return true;
         } catch (Exception e) {
@@ -92,5 +114,35 @@ public class Data {
         return false;
     }
 
+    public static int getNewOrderIntID(){
+        ArrayList<String> data = readFile(Setting.orderDataPath);
+        int size = data.size();
+        try {
+            String lastOrder = data.get(size-1);
+            String lastOrderID =  lastOrder.split(",")[0];
+            return Integer.parseInt(lastOrderID);
+        }
+        catch(Exception e)
+        {
+            return 0;
+        }
 
+    }
+    public static String  getNewOrderStrID(){
+        ArrayList<String> data = readFile(Setting.orderDataPath);
+        int size = data.size();
+        try {
+            String lastOrder = data.get(size-1);
+            int lastOrderID = Integer.parseInt(lastOrder.split(",")[0]);
+
+            return  String.format("%08d", lastOrderID);
+        }
+        catch(Exception e)
+        {
+            return "00000001";
+        }
+
+
+
+    }
 }
