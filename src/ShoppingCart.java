@@ -30,7 +30,6 @@ public class ShoppingCart {
                 fc.amount += 1;
             }
         }
-
         totalPrice += foodCard.unitPrice;
     }
 
