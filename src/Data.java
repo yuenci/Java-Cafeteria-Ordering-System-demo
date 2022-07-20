@@ -186,6 +186,7 @@ public class Data {
                         flag =true;
                         break;
                     }
+
                 }
 
                 if(!flag){
@@ -263,6 +264,7 @@ public class Data {
     public   static ArrayList<String> getDateRangeYyyy(String path){
         ArrayList<String[]> data = readFileToArray(path);
         ArrayList<String> res = new ArrayList<>();
+
         int lastIndex = data.get(0).length -1;
         //System.out.println(data.get(0)[lastIndex].substring(0,7));
 
