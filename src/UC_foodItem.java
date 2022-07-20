@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 public class UC_foodItem extends JPanel {
-    private static  UC_foodItem instance;
+    private  UC_foodItem instance;
     public int unitPrice;
     public int amount;
     public String name;
@@ -14,6 +14,7 @@ public class UC_foodItem extends JPanel {
     public  UC_foodItem(String name,int unitPrice,int amount)
     {
         instance =this;
+        this.name = name;
         this.unitPrice= unitPrice;
         this.amount = amount;
 
@@ -23,23 +24,38 @@ public class UC_foodItem extends JPanel {
         this.setBackground(new Color(217, 217, 217));
 
         addLabels(unitPrice,amount);
-        addPics();
+
+        if(Objects.equals(Status.currentPage, "payment")){
+            //System.out.println("card think this is payment");
+            addPics();
+        }
+
+        /*else if(Objects.equals(Status.currentPage, "history")){
+            //System.out.println("card think this is history");
+        }else{
+            //System.out.println("card think this is ???");
+        }*/
+
+
 
     }
 
     private void addLabels(int unitPrice, int amount){
         int y = 12;
+        JLabel foodName =  new JLabel(name);
+        AddLabel(foodName,20,y,100,24,"left");
+
         JLabel unitPriceLabel = new JLabel("RM " +unitPrice);
-        AddLabel(unitPriceLabel,20,y,100,24,"left");
+        AddLabel(unitPriceLabel,140,y,100,24,"left");
 
         JLabel multiple = new JLabel("×");
-        AddLabel(multiple,140,y,24,24,"left");
+        AddLabel(multiple,240,y,24,24,"left");
 
         amountLabel = new JLabel(String.valueOf(amount));
-        AddLabel(amountLabel,220,y,80,24,"left");
+        AddLabel(amountLabel,290,y,50,24,"left");
 
         totalPriceLabel = new JLabel("RM " + unitPrice * amount);
-        AddLabel(totalPriceLabel,350,y,150,24,"left");
+        AddLabel(totalPriceLabel,370,y,100,24,"left");
 
     }
 
@@ -69,7 +85,8 @@ public class UC_foodItem extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                ShoppingCart.addFoodToShoppingCart(instance);
+                Status.currentShoppingCart.addFoodToShoppingCart(instance);
+                System.out.println("+clicked");
                 amount +=1;
                 totalPriceLabel.setText("RM: " + unitPrice*amount);
                 amountLabel.setText(String.valueOf(amount));
@@ -88,7 +105,7 @@ public class UC_foodItem extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                ShoppingCart.deleteFood(instance);
+                Status.currentShoppingCart.deleteFood(instance);
                 amount -=1;
                 totalPriceLabel.setText("RM: " + unitPrice*amount);
                 amountLabel.setText(String.valueOf(amount));
@@ -114,7 +131,8 @@ public class UC_foodItem extends JPanel {
         }else if(Objects.equals(align, "left")){
             label.setHorizontalAlignment(SwingConstants.LEFT);
         }
-
+        /*label.setOpaque(true);
+        label.setBackground(new Color(6, 0, 255));*/
         label.setFont(new Font("Segoe UI",Font.BOLD,20));
         instance.add(label);
     }

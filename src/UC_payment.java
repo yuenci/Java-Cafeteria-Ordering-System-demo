@@ -3,12 +3,18 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UC_payment extends JPanel {
     public  static  UC_payment instance;
     boolean clicked = false;
+    boolean existed =false;
     public static JPanel cardContainer;
     private static JLabel totalPrice;
+    private JButton commentBtn;
+    private JTextArea area;
+    private  int star =0;
+    private ArrayList<JLabel> stars;
     public UC_payment(){
         instance =this;
         this.setLayout(null);
@@ -19,10 +25,23 @@ public class UC_payment extends JPanel {
         this.setBackground(new Color(180, 160, 255));
 
         initLabel();
-        addTexTFieldAndButton();
-        addPics();
-        addStars();
+
         addFoodItem();
+
+        if(Objects.equals(Status.currentPage, "history")){
+            //System.out.println("Payment think this is history");
+            addStars();
+            addTexTFieldAndButton();
+            prepareCommentData();
+        }
+        else if(Objects.equals(Status.currentPage, "payment"))
+        {
+            //System.out.println("Payment think this is payment");
+            addPics();
+
+        }else{
+            System.out.println("Payment think this is ???");
+        }
     }
 
     private  void initLabel()
@@ -32,7 +51,7 @@ public class UC_payment extends JPanel {
         payment.setFont(new Font("Segoe UI",Font.BOLD,20));
         instance.add(payment);
 
-        totalPrice = new JLabel("RM " + ShoppingCart.getTotoalPrice());
+        totalPrice = new JLabel("RM " + Status.currentShoppingCart.getTotoalPrice());
         totalPrice.setBounds(880,572,280,80);
         totalPrice.setFont(new Font("Segoe UI",Font.BOLD,64));
         totalPrice.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -45,15 +64,35 @@ public class UC_payment extends JPanel {
 
     private void addTexTFieldAndButton()
     {
-        JButton btn = new JButton("Comment");
-        btn.setBounds(1050,462,115,41);
-        btn.setFont(new Font("Segoe UI",Font.BOLD,16));
-        instance.add(btn);
+        commentBtn = new JButton("Comment");
+        commentBtn.setBounds(1050,462,115,41);
+        commentBtn.setFont(new Font("Segoe UI",Font.BOLD,16));
+        instance.add(commentBtn);
 
-        JTextArea area = new JTextArea();
+        area = new JTextArea();
         area.setBounds(843,230,326,200);
         area.setFont(new Font("Segoe UI",Font.BOLD,16));
         instance.add(area);
+
+        commentBtn.addActionListener(e -> {
+            if(area.getText() !=null && star!=0){
+                String[] feedback = new String[4];
+                feedback[0] = Status.orderIDchose;
+                feedback[1] = String.valueOf(star);
+                feedback[2] = area.getText();
+                feedback[3] = Data.getDateTime();
+
+                String feedbackData = String.join(",",feedback);
+                Data.addStringToFile(Setting.feedbackDataPath, feedbackData);
+
+                commentBtn.setEnabled(false);
+                JOptionPane.showMessageDialog(this,"Thank you for comment.");
+            }else{
+                JOptionPane.showMessageDialog(this,"Please star and comment.");
+            }
+
+
+        });
     }
 
     private void addPics(){
@@ -74,10 +113,10 @@ public class UC_payment extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int totalPrice = ShoppingCart.getTotoalPrice();
+                int totalPrice = Status.currentShoppingCart.getTotoalPrice();
                 int select = JOptionPane.showConfirmDialog(instance,"This order will cost RM "+ totalPrice+ ",\n are you sure to pay? ","Confirm",JOptionPane.YES_NO_OPTION);
                 if(select ==0){
-                    ShoppingCart.generateOrderArray();
+                    Status.currentShoppingCart.generateOrderArray();
                     //System.out.println("Yessss");
                 }else {
                     System.out.println("Not Pay");
@@ -98,9 +137,10 @@ public class UC_payment extends JPanel {
         cardContainer.setOpaque(true);
         cardContainer.setBackground(new Color(6, 0, 255));
 
-        ArrayList<UC_foodCard> shoppingCart = ShoppingCart.getAllFood();
-
+        ArrayList<UC_foodCard> shoppingCart =Status.currentShoppingCart.getAllFood();
+        
         for (UC_foodCard fd : shoppingCart) {
+            System.out.println(fd.name + fd.price + fd.amount + "paymnetJava161L");
             UC_foodItem foodItem = new UC_foodItem(fd.name, fd.price, fd.amount);
             foodItem.setPreferredSize(new Dimension(600, 50));
             cardContainer.add(foodItem);
@@ -109,7 +149,7 @@ public class UC_payment extends JPanel {
     }
 
     public static void  updateTotalPrice(){
-        totalPrice.setText("RM "  + ShoppingCart.getTotoalPrice());
+        totalPrice.setText("RM "  + Status.currentShoppingCart.getTotoalPrice());
     }
 
 
@@ -121,7 +161,7 @@ public class UC_payment extends JPanel {
         ImageIcon yStar = new ImageIcon("src/images/yStar.png");
         yStar.setImage(yStar.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 
-        ArrayList<JLabel> stars  = new ArrayList<>();
+        stars  = new ArrayList<>();
         for (int i = 0; i <5 ; i++) {
 
             JLabel starPicLabel = new JLabel(String.valueOf(i)) ;
@@ -143,20 +183,21 @@ public class UC_payment extends JPanel {
                     setYellowStars(stars,count);
 
                     clicked = true;
+                    star = count +1;
                 }
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     Cursor cur=new Cursor(Cursor.HAND_CURSOR);
                     starPicLabel.setCursor(cur);
-                    if(!clicked){
+                    if(!clicked && !existed){
                         setYellowStars(stars,count);
                     }
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    if(!clicked){
+                    if(!clicked&& !existed){
                         reSetStars(stars);
                     }
                 }
@@ -184,6 +225,28 @@ public class UC_payment extends JPanel {
         for (JLabel ele:stars
              ) {
             ele.setIcon(bStar);
+        }
+    }
+
+    private void prepareCommentData(){
+        ArrayList<String[]> data = Data.readFileToArray(Setting.feedbackDataPath);
+        String[] comment = new String[4];
+        boolean exist = false;
+        for (String[] ele: data
+             ) {
+            if(Objects.equals(ele[0], Status.orderIDchose)){
+                comment = ele;
+                exist =true;
+                existed = true;
+                break;
+            }
+        }
+
+        if(exist){
+            System.out.println();
+            commentBtn.setEnabled(false);
+            area.setText(comment[2]);
+            setYellowStars(stars,Integer.parseInt(comment[1])-1);
         }
     }
 }

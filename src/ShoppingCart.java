@@ -3,8 +3,8 @@ import java.util.Objects;
 
 public class ShoppingCart {
     private static ArrayList<UC_foodCard> content ;
-    private static int amount, totalPrice;
-    private static boolean paid = false;
+    private  int amount, totalPrice;
+    private  boolean paid = false;
     public ShoppingCart(){
         content = new ArrayList<>();
     }
@@ -24,16 +24,21 @@ public class ShoppingCart {
         UC_shopping.instance.totalPrice.setText("RM " + totalPrice);
     }
 
-    public static void addFoodToShoppingCart(UC_foodItem foodCard){
+    public void addFoodToShoppingCart(UC_foodItem foodCard){
         for (UC_foodCard fc : content) {
+            //System.out.println(fc.name +"---" + foodCard.name);
             if (Objects.equals(fc.name, foodCard.name)) {
+                //System.out.println("eixst");
+                System.out.println(fc.amount);
                 fc.amount += 1;
+            }else{
+                System.out.println("can't find");
             }
         }
         totalPrice += foodCard.unitPrice;
     }
 
-    public static void  deleteFood(UC_foodItem foodCard){
+    public  void  deleteFood(UC_foodItem foodCard){
         for (UC_foodCard fc : content) {
             if (Objects.equals(fc.name, foodCard.name)) {
                 fc.amount -= 1;
@@ -42,7 +47,7 @@ public class ShoppingCart {
         totalPrice -= foodCard.unitPrice;
     }
 
-    public static ArrayList<UC_foodCard> getAllFood()
+    public  ArrayList<UC_foodCard> getAllFood()
     {
         return content;
     }
@@ -56,11 +61,11 @@ public class ShoppingCart {
         return  false;
     }
 
-    public static int getTotoalPrice(){
+    public int getTotoalPrice(){
         return  totalPrice;
     }
 
-    public static void generateOrderArray(){
+    public  void generateOrderArray(){
         if(!paid){
             ArrayList<String> data = new ArrayList<>();
             int total = getTotoalPrice();
@@ -69,13 +74,14 @@ public class ShoppingCart {
                 int price = fc.price;
                 int amount = fc.amount;
 
-                String[] dataItemList = new String[6];
+                String[] dataItemList = new String[7];
                 dataItemList[0] = Data.getNewOrderStrID();
                 dataItemList[1] = String.valueOf(name);
                 dataItemList[2] = String.valueOf(price);
                 dataItemList[3] = String.valueOf(amount);
                 dataItemList[4] = String.valueOf(total);
                 dataItemList[5] = Status.tpNum;
+                dataItemList[6] = Data.getDateTime();
                 String dataItem = String.join(",", dataItemList);
                 data.add(dataItem);
             }
@@ -85,4 +91,16 @@ public class ShoppingCart {
         }
 
     }
+
+    public  void addDataToShoppingCart (UC_foodCard foodCard){
+
+        totalPrice += foodCard.price * foodCard.amount;
+        content.add(foodCard);
+        //System.out.println("createCard done");
+    }
+
+    public  void clearShoppingCart(){
+        content.clear();
+    }
+
 }

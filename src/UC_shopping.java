@@ -66,7 +66,9 @@ public class UC_shopping extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                addHistoryPanel();
 
+                Status.currentPage = "history";
             }
         });
 
@@ -86,8 +88,11 @@ public class UC_shopping extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(ShoppingCart.getTotoalPrice() !=0){
+                if(Status.currentShoppingCart.getTotoalPrice() !=0){
+                    Status.currentPage = "payment";
                     MainFrame.changeToPayment();
+
+                    System.out.println(Status.currentPage);
                 }else{
                     JOptionPane.showMessageDialog(instance,"You haven't choose any food");
                 }
@@ -103,6 +108,7 @@ public class UC_shopping extends JPanel {
         foodData = data;
 
         shoppingCart = new ShoppingCart();
+        Status.currentShoppingCart =shoppingCart;
     }
 
     private void AddLabel(JLabel label,int x,int y,int w,int h,String align){
@@ -171,5 +177,15 @@ public class UC_shopping extends JPanel {
         }
     }
 
+    private void addHistoryPanel(){
+        UC_history frame = new UC_history("Order History");
 
+        frame.setResizable(false);
+
+        frame.setSize(400, 420);
+        frame.setVisible(true);
+
+        //System.out.println("historyyyyyyy");
+
+    }
 }
