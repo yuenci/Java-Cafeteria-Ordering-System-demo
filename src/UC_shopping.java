@@ -51,7 +51,7 @@ public class UC_shopping extends JPanel {
 
         historyPicLabel = new JLabel() ;
         historyPicLabel.setIcon(historyPic);
-        historyPicLabel.setBounds(1210,530,45,45);
+        historyPicLabel.setBounds(1200,530,45,45);
         instance.add(historyPicLabel);
         historyPicLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -66,7 +66,7 @@ public class UC_shopping extends JPanel {
 
         finishPicLabel = new JLabel() ;
         finishPicLabel.setIcon(finishPic);
-        finishPicLabel.setBounds(1210,600,45,45);
+        finishPicLabel.setBounds(1200,600,45,45);
         instance.add(finishPicLabel);
         finishPicLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -74,6 +74,8 @@ public class UC_shopping extends JPanel {
                 Cursor cur=new Cursor(Cursor.HAND_CURSOR);
                 finishPicLabel.setCursor(cur);
             }
+
+
         });
     }
 
