@@ -14,9 +14,8 @@ public class MainFrame extends JFrame {
 
         this.setContentPane(root);
 
-        /*
         JPanel uc_login = new UC_login();
-        uc_login.setBounds(425,85,430,550);*/
+        uc_login.setBounds(425,85,430,550);
 
 
         /*JPanel uc_shopping = new UC_shopping();
@@ -25,20 +24,20 @@ public class MainFrame extends JFrame {
         /*JPanel uc_payment = new UC_payment();
         uc_payment.setBounds(0,0,1280,720);*/
 
-        JPanel uc_analysis = new UC_analysis();
-        uc_analysis.setBounds(0,0,1280,720);
+        /*JPanel uc_analysis = new UC_analysis();
+        uc_analysis.setBounds(0,0,1280,720);*/
 
-        root.add(uc_analysis);
+        root.add(uc_login);
 
 
     }
 
     public static void changeToAdminDashBoard()
     {
-        JPanel uc_admin_dashboard = new UC_admin_dashboard();
-        uc_admin_dashboard.setBounds(425,85,430,550);
+        JPanel uc_analysis = new UC_analysis();
+        uc_analysis.setBounds(0,0,1280,720);
 
-        addNewPanelToFrame(uc_admin_dashboard);
+        addNewPanelToFrame(uc_analysis);
 
     }
 
@@ -57,6 +56,24 @@ public class MainFrame extends JFrame {
         uc_payment.setBounds(0,0,1280,720);
 
         addNewPanelToFrame(uc_payment);
+
+    }
+
+    public static void changeToLogin()
+    {
+        JPanel uc_login = new UC_login();
+        uc_login.setBounds(425,85,430,550);
+
+        addNewPanelToFrame(uc_login);
+
+    }
+
+    public static void changeToRegister()
+    {
+        JPanel uc_register = new UC_register();
+        uc_register.setBounds(425,85,430,550);
+
+        addNewPanelToFrame(uc_register);
 
     }
 

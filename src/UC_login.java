@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
 public class UC_login extends JPanel {
     JLabel accountlabel;
@@ -38,7 +37,7 @@ public class UC_login extends JPanel {
         loginBtn = new JButton("Login");
         loginBtn.setBounds(54,401,140,55);
 
-        recoveryBtn = new JButton("Recovery");
+        recoveryBtn = new JButton("Register");
         recoveryBtn.setBounds(236,401,140,55);
 
         this.add(accountlabel);
@@ -49,8 +48,7 @@ public class UC_login extends JPanel {
         this.add(recoveryBtn);
 
         loginBtn.addActionListener(new loginBtnListener());
-
-
+        recoveryBtn.addActionListener(e -> MainFrame.changeToRegister());
     }
 
     private class loginBtnListener implements ActionListener{
@@ -59,25 +57,17 @@ public class UC_login extends JPanel {
             String acs = accountField.getText();
             String pws = pwsField.getText();
 
-            MainFrame.changeToCustomerShopping();
-
-            /*if(acs.isEmpty() || pws.isEmpty()){
+            if(acs.isEmpty() || pws.isEmpty()){
                 JOptionPane.showMessageDialog(instance,"Enter account and password please");
-            }
-
-            if(Data.authentication(acs,pws)){
-                JOptionPane.showMessageDialog(instance,"Welcome" + Status.userName);
-                if(Objects.equals(Status.type, "admin")){
-                    MainFrame.changeToAdminDashBoard();
-                }else{
+            }else {
+                if(Data.authentication(acs,pws)){
+                    JOptionPane.showMessageDialog(instance,"Welcome " + Status.userName);
                     MainFrame.changeToCustomerShopping();
+                }else
+                {
+                    JOptionPane.showMessageDialog(instance,"TP number or password has mistake");
                 }
-
-            }else
-            {
-                JOptionPane.showMessageDialog(instance,"TP number or password has mistake");
             }
-             */
         }
     }
 }

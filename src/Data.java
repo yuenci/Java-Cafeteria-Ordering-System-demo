@@ -122,6 +122,8 @@ public class Data {
         return false;
     }
 
+
+
     public static int getNewOrderIntID(){
         ArrayList<String> data = readFile(Setting.orderDataPath);
         int size = data.size();
@@ -329,7 +331,7 @@ public class Data {
         for (int j = 0; j < 12; j++) {
             String[] temp = new String[2];
             temp[0] = year +"-" + String.format("%02d", j+1);
-            temp[1] = String.valueOf(incomeTemp[j]);
+            temp[1] = "RM " + incomeTemp[j];
             res.add(temp);
         }
 
@@ -409,5 +411,35 @@ public class Data {
             System.out.println(ele[0] + "+++" + ele[1]);
         }*/
         return res;
+    }
+
+    public  static  String getNewTPNum(){
+        ArrayList<String[]>  adminData = readFileToArray(Setting.adminDataPath);
+        ArrayList<String[]>  cusData = readFileToArray(Setting.customerDataPath);
+
+        int adminMax = 0 ;
+        int cusMax = 0;
+
+        for (String[] ele: adminData
+             ) {
+            int num = Integer.parseInt(ele[0].substring(2,8));
+            if(num>adminMax){
+                adminMax = num;
+            }
+        }
+        for (String[] ele: cusData
+        ) {
+            int num = Integer.parseInt(ele[0].substring(2,8));
+            if(num>cusMax){
+                cusMax = num;
+            }
+        }
+
+        if(adminMax > cusMax){
+            return String.format( "tp%06d", adminMax+1);
+        }
+        else{
+            return String.format( "tp%06d", cusMax+1);
+        }
     }
 }
