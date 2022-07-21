@@ -857,6 +857,34 @@ public class MyFrame extends JFrame {
 
 ### Anasysis
 ![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/anasysis.png)
+
+## Implement
+### Login
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/20220721_221116.png)
+
+### Regiter
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Snipaste_2022-07-21_22-12-02.png)
+
+### Welcome
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Snipaste_2022-07-21_22-13-19.png)
+
+
+### Payment
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Snipaste_2022-07-21_22-13-28.png)
+
+
+### View history
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Snipaste_2022-07-21_22-52-42.png)
+
+
+### Comment
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Snipaste_2022-07-21_23-02-54.png)
+
+
+### Analysis
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Snipaste_2022-07-21_23-16-00.png)
+
+
 > To be continued
 
 
