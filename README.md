@@ -844,7 +844,19 @@ public class MyFrame extends JFrame {
     }
 }
 ```
+# UI Part
+## Design 
+### Login / Register
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Login.png)
 
+### Shopping
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Shopping.png)
+
+### Payment
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/Payment.png)
+
+### Anasysis
+![](https://github.com/yuenci/javaACOSDemo/blob/master/src/images/anasysis.png)
 > To be continued
 
 

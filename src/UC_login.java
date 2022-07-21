@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class UC_login extends JPanel {
     JLabel accountlabel;
@@ -62,7 +63,12 @@ public class UC_login extends JPanel {
             }else {
                 if(Data.authentication(acs,pws)){
                     JOptionPane.showMessageDialog(instance,"Welcome " + Status.userName);
-                    MainFrame.changeToCustomerShopping();
+                    if(Objects.equals(Status.type, "customer")){
+                        MainFrame.changeToCustomerShopping();
+                    }else{
+                        MainFrame.changeToAdminDashBoard();
+                    }
+
                 }else
                 {
                     JOptionPane.showMessageDialog(instance,"TP number or password has mistake");
