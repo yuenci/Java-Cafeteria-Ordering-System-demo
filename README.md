@@ -844,11 +844,8 @@ public class MyFrame extends JFrame {
     }
 }
 ```
-# UI Part
-## Design
 
 > To be continued
-
 
 
 
