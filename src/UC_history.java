@@ -55,6 +55,8 @@ public class UC_history extends JFrame {
         ArrayList<JPanel> cardsArray = new ArrayList<>();
         ArrayList<String[]> orderdata = Data.getbriefOrderDataByTpNum();
 
+
+
         for (int i = 0; i < 5; i++) {
             JPanel card = new JPanel();
             card.setPreferredSize(new Dimension(320,45));

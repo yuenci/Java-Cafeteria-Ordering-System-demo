@@ -68,7 +68,9 @@ public class Data {
 
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                content.add(data);
+                if (!Objects.equals(data, "\n")) {
+                    content.add(data);
+                }
             }
 
             myReader.close();
@@ -161,13 +163,27 @@ public class Data {
     public  static  ArrayList<String[]> getItemsByCurrentTPNumAndTimeDESC(String time)
     {
         ArrayList<String> data = readFile(Setting.orderDataPath);
+        ArrayList<String[]> data1 = readFileToArray(Setting.orderDataPath);
         ArrayList<String[]> res = new ArrayList<>();
-        for (String ele:data) {
+        /*for (String ele:data) {
             String[] eleArgs = ele.split(",");
             if(Objects.equals(eleArgs[5], Status.tpNum) && Objects.equals(eleArgs[6], time)){
                 res.add(eleArgs);
             }
+        }*/
+        
+        try{
+            for (String[] eleArgs:data1
+            ) {
+                if(Objects.equals(eleArgs[5], Status.tpNum) && Objects.equals(eleArgs[6], time)){
+                    res.add(eleArgs);
+                }
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
+
+
         Status.orderIDchose = res.get(0)[0];
         return res;
     }
@@ -176,11 +192,13 @@ public class Data {
         ArrayList<String[]> data =readFileToArray(Setting.orderDataPath);
         ArrayList<String[]> res = new ArrayList<>();
 
-        for (int i = data.size()-1; i >=0 ; i--) {
+
+        int lenData = data.size();
+        for (int i = lenData-2; i >= 0 ; i--) {
             if(Objects.equals(data.get(i)[5], Status.tpNum)){
                 boolean flag = false;
                 for (String[] ele: res
-                     ) {
+                ) {
 
                     if(Objects.equals(data.get(i)[6], ele[0])){
                         flag =true;
@@ -195,6 +213,11 @@ public class Data {
                 }
             }
         }
+
+//      for (String[] ele:res
+//        ) {
+//            System.out.println(ele[0] +"--" +ele[1] );
+//        }
 
         return res;
     }
