@@ -10,7 +10,7 @@ The purpose of this project is to practice the knowledge of Java and Java Swing,
 
 
 
-### How to read text file?
+### How to write text file?
 
 ```Java
 public static boolean rewriteFile(String path, String content) {
