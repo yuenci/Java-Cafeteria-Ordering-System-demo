@@ -1,3 +1,5 @@
+# Cafeteria Ordering System
+
 # Aim
 
 The purpose of this project is to practice the knowledge of Java and Java Swing, so only the basic functions have been completed, and the user experience and UI design have not been considered and implemented.
